@@ -1,15 +1,18 @@
 package com.ragemouse.staticlistofcities.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Table(name="cities")
 public class City {
     @Id
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
+            strategy = GenerationType.AUTO,
             generator = "sequence-generator"
     )
     @SequenceGenerator(
@@ -25,4 +28,5 @@ public class City {
     private int population;
     @Column(name="area")
     private double area;
+
 }

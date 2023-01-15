@@ -10,9 +10,10 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class CitiesService {
+public class CityService {
 
     private final CityRepository cityRepository;
+
 
     public List<City> getAllCitiesFromWebSocket(){
         List<City> findAllCities = cityRepository.findAll();
@@ -21,7 +22,7 @@ public class CitiesService {
         return findAllCities;
     }
 
-    public List<City> getAllCitiesWithRepository(){
+    public List<City> getAllCities(){
         return getAllCitiesFromWebSocket();
     }
 

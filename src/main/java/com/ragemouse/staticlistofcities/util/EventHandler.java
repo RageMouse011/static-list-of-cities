@@ -1,25 +1,33 @@
 package com.ragemouse.staticlistofcities.util;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketHandler;
-import org.springframework.web.socket.WebSocketSession;
-import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import java.io.IOException;
-import java.time.LocalTime;
+import org.springframework.messaging.simp.stomp.StompHeaders;
+import org.springframework.messaging.simp.stomp.StompSession;
+import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
+import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Type;
+
 
 @Component
 @Slf4j
-public class EventHandler extends TextWebSocketHandler implements WebSocketHandler {
-
-
+public class EventHandler extends StompSessionHandlerAdapter {
 
     @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+    public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
+        log.info("Connection open" + session.getSessionId());
+        session.subscribe("/topic/cities", this);
+    }
 
+    @Override
+    public Type getPayloadType(StompHeaders headers) {
+        return String.class;
+    }
+
+    @Override
+    public void handleFrame(StompHeaders headers, Object payload) {
+        System.out.println(payload);
     }
 }
 

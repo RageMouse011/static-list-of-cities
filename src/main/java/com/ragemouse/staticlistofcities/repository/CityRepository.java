@@ -1,5 +1,4 @@
 package com.ragemouse.staticlistofcities.repository;
-
 import com.ragemouse.staticlistofcities.entity.City;
 import org.springframework.data.repository.CrudRepository;
 
